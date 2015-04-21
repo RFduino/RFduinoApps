@@ -1,0 +1,15 @@
+This app demonstrates how to integrate an RFduino and RFduino shield accessories with the Raspberry Pi.  The RFduino can be used as a gateway to easily and quickly enable iPhone Support to the Raspberry Pi.
+
+Attach the RFduino and RGB Shield to the Raspberry Pi as shown in wiring.jpg.
+
+Following setup.txt instructions to setup Arduino 1.6.0 and RFduino 2.3.1, or download the 16gb sd card image file from http://www.rfduino.com/downloads/raspbian_rfduino.zip.
+
+Upload the LedButtonSketch to the RFduino.
+
+Execute the Raspberry Pi python script, "sudo python LedButton.py".
+
+Download the LedButton iPhone App from the App Store (or Xcode with iPhone App/rfduinoLedButton).
+
+Connect to the RFduino.
+
+The button on the iPhone can be used to turn the green led on or off via the Raspberry Pi.  The button state of the RGB Shield button A is transmitted to the iPhone via the Raspberry Pi and shown in the application.

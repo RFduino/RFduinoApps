@@ -1,0 +1,107 @@
+format SD Card
+expand NOOBS_v1_4_0.zip
+copy to SD Card
+
+boot on Raspberry PI
+change keyboard to US, leave language English UK
+install Raspbian
+exit raspi-config without changes
+
+sudo su
+apt-get update
+apt-get upgrade
+apt-get dist-upgrade
+reboot
+
+startx (then logoff)
+sudo poweroff
+
+---
+
+ssh pi
+
+vi .vimrc
+set nocompatible
+set backspace=indent,eol,start
+
+sudo su
+
+vi ~/.vimrc
+set nocompatible
+set backspace=indent,eol,start
+
+apt-get install xrdp
+
+// https://nicohood.wordpress.com/2015/01/24/installing-avr-gcc-4-8-1-and-arduino-ide-1-6-on-raspberry-pi/
+
+edit /etc/apt/sources.list
+deb http://mirrordirector.raspbian.org/raspbian/ jessie main contrib non-free rpi
+deb http://archive.raspbian.org/raspbian jessie main contrib non-free rpi
+
+edit /etc/apt/preferences
+Package: *
+Pin: release n=wheezy
+Pin-Priority: 900
+ 
+Package: *
+Pin: release n=jessie
+Pin-Priority: 300
+ 
+Package: *
+Pin: release o=Raspbian
+Pin-Priority: -10
+
+apt-get update
+
+apt-get -t jessie install gcc-avr
+
+apt-get -t jessie install avrdude avr-libc libjssc-java libastylej-jni libcommons-exec-java libcommons-httpclient-java libcommons-logging-java libjmdns-java libjna-java libjsch-java
+
+wget https://www.dropbox.com/s/k7dftaq8vkrta0t/arduino_1.6.0_all.deb
+wget https://www.dropbox.com/s/l9qz49bdzxnp4rm/arduino-core_1.6.0_all.deb
+dpkg -i arduino-core_1.6.0_all.deb arduino_1.6.0_all.deb
+
+mkdir /usr/share/arduino/hardware/tools/avr/etc/
+ln -s /etc/avrdude.conf /usr/share/arduino/hardware/tools/avr/etc/avrdude.conf
+
+exit
+
+avr-gcc -v
+
+remote desktop
+menu -> programming -> arduino ide, right-click add to desktop
+start arduino
+file -> preferences, add compilation/upload verbose, display line numbers
+
+---
+
+ssh pi
+
+sudo apt-get -t jessie install gcc-arm-none-eabi gdb-arm-none-eabi
+arm-none-eabi-gcc -v
+
+wget http://github.com/RFduino/RFduino/archive/v2.3.1.zip
+unzip v2.3.1.zip
+cd RFduino-2.3.1
+edit platform.txt
+uncomment arduino 1.6.1 config, comment arduino 1.6.3 config
+uncomment RFDLoader_pi, uncomment RFDLoader_linux
+chmod +x RFDLoader_pi
+cd ..
+sudo mv RFduino-2.3.1 /usr/share/arduino/hardware/arduino/RFduino
+
+wget http://github.com/RFduino/RFduinoApps/archive/v1.0.zip
+unzip v1.0.zip
+
+remote desktop 192.168.1.48
+start arduino
+tools -> board -> RFduino
+tools -> board -> /dev/ttyUSB0
+compile blank sketch to test
+upload /home/pi/RFduinoApps-1.0/Raspberry Pi LedButton/LedButtonSketch/LedButtonSketch.ino
+
+terminal
+cd /RFduinoApps-1.0/Raspberry Pi LedButton/LedButtonPython
+sudo python LedButton.py
+
+download the LedButton app from the iPhone App Store
