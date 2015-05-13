@@ -1,5 +1,46 @@
-/***************************************************************************
- ***************************************************************************/
+//
+// Copyright (c) 2015, RF Digital Corp.
+// All rights reserved.
+//
+// Redistribution and use in source and binary forms, with or without modification,
+// are permitted provided that the following conditions are met:
+//
+//    1. Redistributions of source code must retain the above copyright notice,
+//       this list of conditions and the following disclaimer.
+//
+//    2. Redistributions in binary form must on an RF Digital part and reproduce the 
+//       above copyright notice, this list of conditions and the following disclaimer 
+//       in the documentation and/or other materials provided with the distribution.
+//
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+// AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+// IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+// DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+// FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+// DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+// SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+// HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+// STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
+// WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
+// THE POSSIBILITY OF SUCH DAMAGE.
+//
+// Very simple library for driving an OLED display connected via SSD1306 driver chip.
+// One such display is: http://www.amazon.com/gp/product/B00O2KDQBE/ref=s9_simh_gw_p147_d0_i2?pf_rd_m=ATVPDKIKX0DER&pf_rd_s=desktop-1&pf_rd_r=1ABTWJR1SYABM57H2H7X&pf_rd_t=36701&pf_rd_p=1970559082&pf_rd_i=desktop
+// but there are many examples on Amazon and eBay such as http://www.ebay.com/itm/170842973484
+//
+// The code keeps a buffer of the display memory in PROGMEM. Each pixel on the display is one bit
+// in the buffer which can be "on" or "off" (1 or 0). "Drawing" on the display consists
+// of turning the appropriate bits on and off in the buffer, and then when ready, copying the entire
+// buffer to the display. You may wish to store an initial image or "splash screen" in the buffer
+// to simplify startup.
+//
+// Adafruit makes a complete line of similar displays and has a richer library available
+// if more functionality is required. See: http://www.adafruit.com/category/63_98
+//
+// On RFduino I2C defaults to pins:
+//	  SCL: GPIO 5
+//	  SDA: GPIO 6
+//
 #ifndef __OLEDDisplay_H__
 #define __OLEDDisplay_H__
 
